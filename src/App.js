@@ -6,11 +6,16 @@ function App() {
   const API_URL = 'https://ohulnqhm8a.execute-api.us-east-1.amazonaws.com/prod/';
 
   useEffect(() => {
-    // For demonstration, you'll need to create a new Lambda route (GET) to fetch data later.
-    axios.get(API_URL)
-      .then(response => setComments(response.data.comments))
-      .catch(err => console.error('API call failed:', err));
-  }, []);
+	axios.get(API_URL)
+		.then(response => {
+		console.log('Received comments:', response.data);
+		setComments(response.data.comments);
+		})
+		.catch(err => {
+		console.error('API call failed:', err);
+		});
+	}, []);
+
 
   return (
     <div>
