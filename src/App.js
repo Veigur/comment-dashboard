@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [comments, setComments] = useState([]);
+  const API_URL = 'https://ohulnqhm8a.execute-api.us-east-1.amazonaws.com/prod/';
+
+  useEffect(() => {
+    // For demonstration, you'll need to create a new Lambda route (GET) to fetch data later.
+    axios.get(API_URL)
+      .then(response => setComments(response.data.comments))
+      .catch(err => console.error('API call failed:', err));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Comment Dashboard</h1>
+      {comments.length === 0 ? (
+        <p>No comments yet!</p>
+      ) : (
+        comments.map(comment => (
+          <div key={comment.CommentID}>
+            <h3>{comment.CommentText}</h3>
+            <p>Sentiment: {comment.Sentiment}</p>
+            <p>Key Phrases: {comment.KeyPhrases.join(", ")}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 }
