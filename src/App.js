@@ -8,8 +8,7 @@ function App() {
   useEffect(() => {
     axios.get(API_URL)
       .then(response => {
-        console.log(response.data); // debug line to confirm API response
-        setComments(response.data.comments);
+        setComments(response.data.comments || []);
       })
       .catch(err => console.error('API call failed:', err));
   }, []);
@@ -23,8 +22,8 @@ function App() {
         comments.map(comment => (
           <div key={comment.CommentID}>
             <h3>{comment.CommentText}</h3>
-            <p>Sentiment: {comment.Sentiment}</p>
-            <p>Key Phrases: {comment.KeyPhrases.join(", ")}</p>
+            <p>Sentiment: {comment.Sentiment || 'N/A'}</p>
+            <p>Key Phrases: {Array.isArray(comment.KeyPhrases) ? comment.KeyPhrases.join(", ") : "N/A"}</p>
           </div>
         ))
       )}
