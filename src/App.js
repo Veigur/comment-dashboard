@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function App() {
   const [comments, setComments] = useState([]);
-  const API_URL = 'https://ohulnqhm8a.execute-api.us-east-1.amazonaws.com/prod/';
+  const API_URL = "https://ohulnqhm8a.execute-api.us-east-1.amazonaws.com/prod/";
 
   useEffect(() => {
     axios.get(API_URL)
@@ -23,8 +23,8 @@ function App() {
         comments.map(comment => (
           <div key={comment.CommentID}>
             <h3>{comment.CommentText}</h3>
-            <p><strong>Sentiment:</strong> {comment.Sentiment || 'N/A'}</p>
-            <p>Key Phrases: {comment.KeyPhrases ? comment.KeyPhrases.join(", ") : 'N/A'}</p>
+            <p><strong>Sentiment:</strong> {comment.Sentiment || "N/A"}</p>
+            <p>Key Phrases: {comment.KeyPhrases ? comment.KeyPhrases.join(", ") : "N/A"}</p>
           </div>
       ))}
     </div>
