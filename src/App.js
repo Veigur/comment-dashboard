@@ -1,31 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
-  const [comments, setComments] = useState([]);
-  const API_URL = 'https://ohulnqhm8a.execute-api.us-east-1.amazonaws.com/prod/';
+  const [authUrl, setAuthUrl] = useState("");
 
   useEffect(() => {
-    axios.get(API_URL)
+    axios.get("https://your-api-gateway-url/oauth-url")
       .then(response => {
-        setComments(response.data.comments || []);
+        setAuthUrl(response.data.auth_url);
       })
-      .catch(err => console.error('API call failed:', err));
+      .catch(error => console.error("Error fetching OAuth URL:", error));
   }, []);
 
   return (
     <div>
-      <h1>Comment Dashboard</h1>
-      {comments.length === 0 ? (
-        <p>No comments yet!</p>
+      <h1>YouTube OAuth Integration</h1>
+      {authUrl ? (
+        <a href={authUrl}>
+          <button>Authorize YouTube Access</button>
+        </a>
       ) : (
-        comments.map(comment => (
-          <div key={comment.CommentID}>
-            <h3>{comment.CommentText}</h3>
-            <p>Sentiment: {comment.Sentiment || 'N/A'}</p>
-            <p>Key Phrases: {Array.isArray(comment.KeyPhrases) ? comment.KeyPhrases.join(", ") : "N/A"}</p>
-          </div>
-        ))
+        <p>Loading authorization URL...</p>
       )}
     </div>
   );
