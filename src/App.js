@@ -5,7 +5,7 @@ function App() {
   const [authUrl, setAuthUrl] = useState("");
 
   useEffect(() => {
-    axios.get("https://abc123xyz.execute-api.us-east-1.amazonaws.com/prod/oauth-url")
+    axios.get("https://ohulnqhm8a.execute-api.us-east-1.amazonaws.com/prod/oauth-url")
       .then(response => {
         setAuthUrl(response.data.auth_url);
       })
