@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+
+const API_URL = "https://api.audience-vision.com/oauth-url"; // Your API Gateway URL
 
 function App() {
-  const [authUrl, setAuthUrl] = useState("");
-
-  useEffect(() => {
-    axios.get("https://ohulnqhm8a.execute-api.us-east-1.amazonaws.com/prod/oauth-url")
-      .then(response => {
-        setAuthUrl(response.data.auth_url);
-      })
-      .catch(error => console.error("Error fetching OAuth URL:", error));
-  }, []);
+  const handleLogin = () => {
+    window.location.href = API_URL; // Redirects user to OAuth flow
+  };
 
   return (
     <div>
-      <h1>YouTube OAuth Integration</h1>
-      {authUrl ? (
-        <a href={authUrl}>
-          <button>Authorize YouTube Access</button>
-        </a>
-      ) : (
-        <p>Loading authorization URL...</p>
-      )}
+      <h1>Social Comment Analyzer</h1>
+      <button onClick={handleLogin}>Login with YouTube</button>
     </div>
   );
 }
